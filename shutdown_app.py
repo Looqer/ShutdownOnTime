@@ -3,6 +3,7 @@ from tkinter import simpledialog, Label, Tk
 from threading import Thread
 from datetime import datetime, timedelta
 import time
+import os
 
 
 # Creating a function to display information
@@ -12,11 +13,17 @@ def display_information():
     label = tk.Label(top, text="Now the computer is shutting down")
     label.pack(padx=20, pady=20)
 
+def shut_pc_down():
+    # Komenda zamknięcia systemu dla Windows
+    os.system("shutdown /s /t 1")
+
 def execute_shutdown(shutdown_time_str):
     shutdown_time = datetime.strptime(shutdown_time_str, "%H:%M").time()
     while datetime.now().time() < shutdown_time:
         time.sleep(1)
-    display_information()
+    shut_pc_down()
+    #display_information()
+
 
 def time_hhmm_to_seconds(time_hhmm):
     # Parsing time in HH:MM format
